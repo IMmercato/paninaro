@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Paninaro</title>
+        <style>
+            body{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: black;
+                height: 100vh;
+            }
+            #paninaro{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: grey;
+                border-radius: 5px;
+                border: slategray 1px solid;
+                width: 50%;
+                margin: 50%;
+            }
+            #form{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            input{
+                margin: 10px;
+                padding: 10px;
+                width: 200px;
+                border: 1px solid black;
+                border-radius: 5px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="paninaro">
+            <h2>Benvenuti al Paninaro</h2>
+            <form id="form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="classe">Seleziona la Classe:</label>
+                    <select name="classe" id="classe">
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="1"></option>
+                        <option value="2IE">2IE</option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                        <option value="5"></option>
+                    </select>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <div id="error-message"></div>
+        </div>
+        <script type="module" src="clientside.js"></script>
+    </body>
+    </html>
+</html>
