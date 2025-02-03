@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paninaro</title>
+    <style>
+        #card {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-button:hover {
+            background-color: #3e8e41;
+        }
+
+        .details {
+            padding: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .details p {
+            margin-bottom: 10px;
+        }
+
+        .expanded {
+            max-height: 500px;
+            padding: 20px;
+            transition: max-height 0.3s ease-in;
+        }
+
+        #ordini {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Paninaro</h1>
+    <form id="paninaro">
+        <input type="text" id="name" placeholder="Nome" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Invia</button>
+    </form>
+    <div id="ordini">
+        <h1>N di Ordini ricevuti: 0</h1>
+        <div id="n">
+            <div id="card">
+                <button class="toggle-button">ClassName</button>
+                <div class="details">
+                    <p>Order Details</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById('paninaro');
+        const ordiniDiv = document.getElementById('ordini');
+        const toggleButton = document.querySelector('.toggle-button');
+        const detailsDiv = document.querySelector('.details');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+
+            if (name === 'admin' && password === 'admin') {
+                ordiniDiv.style.display = 'block';
+                form.style.display = 'none'
+            } else {
+                ordiniDiv.style.display = 'none';
+                alert('Error: Invalid username or password. Please try again.');
+            }
+        });
+
+        toggleButton.addEventListener('click', () => {
+            detailsDiv.classList.toggle('expanded');
+        });
+    </script>
+</body>
+</html>

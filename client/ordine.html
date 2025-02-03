@@ -1,20 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ordini</title>
-    </head>
-    <body>
-        <div id="oder">
-            <label for="cosa">Cosa vuoi:</label>
-            <select name="cosa" id="cosa">
-                <option value="pizza">Pizza</option>
-                <option value="pc">Panini Classici</option>
-                <option value="focacce">Focacce</option>
-                <option value="pf">Panini e Focacce farcite</option>
-                <option value="toast">Toast</option>
-            </select>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Cart</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .food-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .food-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 20px;
+            padding: 20px;
+            width: 200px;
+            text-align: center;
+        }
+
+        .food-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .food-card p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .cart-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin: 20px auto;
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .cart-container h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .cart-container ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cart-container li {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .cart-container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 400px;
+        }
+
+        .modal-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div id="ordine"></div>
+    <h1>Food Cart</h1>
+    <div class="food-container">
+        <!-- Food cards will be generated here -->
+    </div>
+    <div class="cart-container">
+        <h2>Cart</h2>
+        <ul id="cart-list"></ul>
+        <p id="total-price">Total Price: $0</p>
+        <button id="checkout-btn">Checkout</button>
+    </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Terms and Conditions</h2>
+            <p>By clicking "Accept", you agree to our terms and conditions.</p>
+            <button id="accept-btn">Accept</button>
+            <button id="decline-btn">Decline</button>
         </div>
-    </body>
+    </div>
+
+    <script type="module" src="clientside.js"></script>
+</body>
 </html>
