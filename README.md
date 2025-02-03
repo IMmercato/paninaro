@@ -29,7 +29,7 @@ Paninaro is a web application that allows students to place orders at the school
 2. Open your browser and go to http://localhost:3000
 
 ## Development Status
-The backend for the charts is still under development. If you want to see the vendor (Paninaro) part, which is still in development, you can access it with the following link: Paninaro Vendor. Use admin as both the username and password to log in.
+The backend for the charts is still under development. If you want to see the vendor (Paninaro) part, which is still in development, you can access it with the following link: https://paninaro.onrender.com/Paninaro. Use admin as both the username and password to log in.
 ## Special Instructions
 To access the cart, you must use an email address with the following domain: @itiseveripadova.edu.it, as this project is intended for the school.
 
