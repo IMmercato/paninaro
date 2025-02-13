@@ -6,15 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paninaro</title>
     <style>
+        #n {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
         #card {
             width: 300px;
-            margin: 20px auto;
+            margin: 10px;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
+        @media (max-width: 600px) {
+            #card {
+                width: 90%;
+            }
+        }
         .toggle-button {
             width: 100%;
             padding: 10px;
@@ -24,30 +34,51 @@
             border-radius: 5px;
             cursor: pointer;
         }
-
         .toggle-button:hover {
             background-color: #3e8e41;
         }
-
         .details {
             padding: 20px;
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
-
         .details p {
             margin-bottom: 10px;
         }
-
         .expanded {
             max-height: 500px;
             padding: 20px;
             transition: max-height 0.3s ease-in;
         }
-
         #ordini {
             display: none;
+        }
+        .dashboard {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+        footer {
+            height: 75px;
+            width: 100%;
+            padding: 20px;
+            margin: 20px 0 0 0;
+            position: relative;
+            background-color: #27ae60;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            bottom: 0;
         }
     </style>
 </head>
@@ -62,37 +93,22 @@
     <div id="ordini">
         <h1>N di Ordini ricevuti: 0</h1>
         <div id="n">
-            <div id="card">
-                <button class="toggle-button">ClassName</button>
-                <div class="details">
-                    <p>Order Details</p>
-                </div>
-            </div>
+            <!--Generate the oder card-->
         </div>
+        <div class="dashboard">Dashboard</div>
     </div>
-    <script>
-        const form = document.getElementById('paninaro');
-        const ordiniDiv = document.getElementById('ordini');
-        const toggleButton = document.querySelector('.toggle-button');
-        const detailsDiv = document.querySelector('.details');
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const password = document.getElementById('password').value;
-
-            if (name === 'admin' && password === 'admin') {
-                ordiniDiv.style.display = 'block';
-                form.style.display = 'none'
-            } else {
-                ordiniDiv.style.display = 'none';
-                alert('Error: Invalid username or password. Please try again.');
-            }
-        });
-
-        toggleButton.addEventListener('click', () => {
-            detailsDiv.classList.toggle('expanded');
-        });
-    </script>
+    <footer>
+        <div class="container text-center">
+          <big>Copyright &copy; Paninaro</big>
+          <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
+        </div>
+    </footer>
+    <script type="module" src="clientside.js"></script>
 </body>
+
 </html>
+<!--
+  \_\_\
+  |0__0|
+   \__/
+-->

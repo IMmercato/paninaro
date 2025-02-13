@@ -5,25 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guadagni</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
             height: 100vh;
+        }
+
+        #Guadagni {
+            margin: 20px 0 0 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #charts {
+            width: 90%;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chart {
+            height: 400px;
+            margin: 10px;
+            padding: 10px;
+            box-shadow: 2px 4px;
+            border: silver 1px solid;
+        }
+
+        #details {
+            width: 90%;
+            height: 75px;
+            margin: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        #tot_orders {
+            height: 80%;
+            width: 50%;
+            margin: 10px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 2px 4px;
+            border: silver 1px solid;
+        }
+
+        #tot_money {
+            height: 80%;
+            width: 50%;
+            margin: 10px;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 2px 4px;
+            border: silver 1px solid;
+        }
+
+        footer {
+            height: 75px;
+            width: 100%;
+            margin: 20px 0 0 0;
+            bottom: 0;
+            position: absolute;
+            background-color: #27ae60;
+            color: white;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @media (forced-colors: active) {
+            body {
+                background-color: Canvas;
+                color: CanvasText;
+            }
         }
     </style>
 </head>
 
 <body>
-<div id="Guadagni">
-    <div id="total-earnings" style="width: 800px; height: 400px;"></div>
-    <div id="best-classes" style="width: 800px; height: 400px;"></div>
-    <div class="food-container"></div>
-</div>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div id="Guadagni">
+        <div id="details">
+            <div id="tot_orders"></div>
+            <div id="tot_money"></div>
+        </div>
+        <div id="charts">
+            <div id="chart"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="container text-center">
+          <big>Copyright &copy; Paninaro</big>
+          <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
+        </div>
+    </footer>
     <script type="module" src="clientside.js"></script>
 </body>
+
 </html>
+<!--
+  \_\_\
+  |0__0|
+   \__/
+-->
