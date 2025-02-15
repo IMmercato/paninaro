@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paninaro</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #login {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input,
+        select {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        #error-message {
+            color: #f00;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="login">
+        <h2>Benvenuti al Paninaro</h2>
+        <form id="form">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Nome">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Istituzionale:</label>
+                <input type="email" id="email" required placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="classe">Seleziona la Classe:</label>
+                <select name="classe" id="classe" required>
+                    <option value="2IE">2IE</option>
+                    <option value="1EA">1EA</option>
+                    <option value="1IA">1IA</option>
+                    <option value="1IB">1IB</option>
+                    <option value="1IC">1IC</option>
+                    <option value="1ID">1ID</option>
+                    <option value="1IE">1IE</option>
+                    <option value="1IF">1IF</option>
+                    <option value="1IG">1IG</option>
+                    <option value="1MA">1MA</option>
+                    <option value="1MB">1MB</option>
+                    <option value="2IA">2IA</option>
+                    <option value="2IB">2IB</option>
+                    <option value="2IC">2IC</option>
+                    <option value="2ID">2ID</option>
+                    <option value="2IF">2IF</option>
+                    <option value="2IG">2IG</option>
+                    <option value="2IH">2IH</option>
+                    <option value="2MA">2MA</option>
+                    <option value="2MB">2MB</option>
+                    <option value="3IA">3IA</option>
+                    <option value="3IB">3IB</option>
+                    <option value="3IC">3IC</option>
+                    <option value="3ID">3ID</option>
+                    <option value="3IF">3IF</option>
+                    <option value="3IG">3IG</option>
+                    <option value="3MA">3MA</option>
+                    <option value="3MB">3MB</option>
+                    <option value="3UA">3UA</option>
+                    <option value="4IA">4IA</option>
+                    <option value="4IB">4IB</option>
+                    <option value="4IC">4IC</option>
+                    <option value="4ID">4ID</option>
+                    <option value="4IF">4IF</option>
+                    <option value="4MA">4MA</option>
+                    <option value="4MB">4MB</option>
+                    <option value="4UA">4UA</option>
+                    <option value="5EA">5EA</option>
+                    <option value="5IB">5IB</option>
+                    <option value="5IA">5IA</option>
+                    <option value="5IC">5IC</option>
+                    <option value="5ID">5ID</option>
+                    <option value="5IE">5IE</option>
+                    <option value="5IF">5IF</option>
+                    <option value="5MA">5MA</option>
+                </select>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <a href="/Login">Sei già registrato?</a>
+        <a href="/Paninaro">Sei il paninaro?</a>
+        <div id="error-message"></div>
+    </div>
+    <script type="module" src="clientside.js"></script>
+</body>
+
+</html>
+<!--
+  \_\_\
+  |0__0|
+   \__/
+-->

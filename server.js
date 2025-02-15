@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 app.get('/', async (req, res) => {
   res.sendFile(__dirname + '/client/index.html');
 });
+app.get('/Signin', async (req, res) => {
+  res.sendFile(__dirname + '/client/signin.html');
+});
 app.get('/Paninaro', async (req, res) => {
   res.sendFile(__dirname + '/client/paninaro.html');
 });
