@@ -12,11 +12,11 @@
             padding: 0;
             background-color: #fff;
             display: flex;
-            flex-direction: column; /* Stack children vertically */
+            flex-direction: column;
         }
 
         main {
-            flex: 1; /* Allow main content to grow and take available space */
+            flex: 1;
         }
         div {
             margin: 20px;
@@ -107,7 +107,7 @@
     <div id="home">
         <h1>Paninaro</h1>
         <p style="width: 300px;">Qui potrai ordinare direttamente dal paninaro senza aspettare!</p>
-        <button><a href="/Signin">Inizia</a></button>
+        <button onclick="location.href='/Signin'" type="button">Inizia</button>
         <p>Questo servizio offre di <mark>prenotare dal Paninaro prima</mark> e di far meno coda!😁</p>
     </div>
     <div id="news">
@@ -120,7 +120,7 @@
     <div id="contact">
         <h1>Contatti</h1>
         <h3>Numero:</h3>
-        <p style="margin: 0;" id="number"><a href="callto:3289483403">+39 3289483403</a></p>
+        <p style="margin: 0;" id="number"><a href="tel:+393289483403">+39 3289483403</a></p>
         <div id="name">Imesh</div>
         <h3>Email:</h3>
         <p style="margin: 0;"><a href="mailto:imesh.fernando100@gmail.com">imesh.fernando100@gmail.com</a></p>
@@ -128,26 +128,10 @@
     <footer>
         <div class="container text-center">
             <big>Copyright &copy; Paninaro</big>
-            <i>Website built by <a target="_blank" href="https://github.com/IMmercato">
+            <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a>
         </div>
     </footer>
-    <script>
-        const menù = [
-            { name:"Pizza + Bibità", price:3.00 },
-            { name:"Panino + Bibità", price:3.50 },
-        ];
-        const cards = document.getElementById("cards");
-        menù.forEach((menu) => {
-            const card = document.createElement("div");
-            card.classList.add("card");
-            card.innerHTML = `
-            <h4>${menu.name}</h4>
-            <img src="" alt="menù">
-            <p>€${menu.price}</p>
-            `
-            cards.append(card);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

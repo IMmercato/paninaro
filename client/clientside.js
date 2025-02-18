@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
 import { getFirestore, setDoc, addDoc, updateDoc, deleteDoc, collection, doc, getDoc, getDocs, query, Timestamp, where } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBOrbHqvaKesB01CNajd62X5FlNzI0KgRc",
@@ -17,11 +17,12 @@ const db = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 
 document.addEventListener('DOMContentLoaded', function () {
+    const signin = document.getElementById('signin')
     const login = document.getElementById('login')
     const reserved = document.getElementById('paninaro')
     const money = document.getElementById('Guadagni')
     const ordine = document.getElementById('ordine')
-    if (login) {
+    if (signin) {
         register()
     } else if (reserved) {
         paninaro()
@@ -29,6 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
         guadagni()
     } else if (ordine) {
         order()
+    } else if (login) {
+        logins()
     } else {
         losess()
     }
@@ -37,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function () {
 function register() {
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            document.getElementById("login").style.display = "none";
+            document.getElementById("signin").style.display = "none";
             setTimeout(() => {
                 window.location.href = '/Order';
             }, 1000)
         } else {
-            document.getElementById("login").style.display = "block";
+            document.getElementById("signin").style.display = "block";
         }
     });
     const registerForm = document.getElementById("form");
@@ -98,6 +101,37 @@ function register() {
     });
 }
 
+function logins() {
+    const form = document.getElementById("form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!email || !password) {
+            errorMessageDiv.textContent = "Please fill in all fields.";
+            return;
+        }
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log("User Loged: ", user);
+                window.location.href = "/Order"
+            })
+            .catch((error) => {
+                const errorcode = error.code;
+                const errormessage = error.message;
+                console.log("Error login user", errorcode, errormessage);
+                alert(errormessage);
+            })
+    })
+}
+
 function paninaro() {
     const form = document.getElementById('paninaro');
     const ordiniDiv = document.getElementById('ordini');
@@ -123,7 +157,11 @@ function paninaro() {
         for (const className of classNames) {
             const collectionPath = `orders/${className}/orders`;
             const collectionRef = collection(db, collectionPath);
-            const querySnapshot = await getDocs(collectionRef);
+            const now = new Date();
+            const twentyFourHoursAgo = new Date();
+            twentyFourHoursAgo.setTime(now.getTime() - 24 * 60 * 60 * 1000);
+            const q = query(collectionRef, where('time', '>=', Timestamp.fromDate(twentyFourHoursAgo)), where('time', '<=', Timestamp.fromDate(now)));
+            const querySnapshot = await getDocs(q);
             const orders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             if (orders.length > 0) {
                 const filteredOrders = orders.filter(order => !order.orderready);
@@ -133,6 +171,7 @@ function paninaro() {
             }
         }
     }
+
     function generateOrderCard(className, orders) {
         const card = document.createElement("div");
         card.id = "card";
@@ -362,7 +401,7 @@ function guadagni() {
             const collectionRef = collection(db, collectionPath);
             const querySnapshot = await getDocs(collectionRef);
             const count = querySnapshot.size;
-            console.log(`Collection ${collectionPath} has ${count} documents.`);
+            //console.log(`Collection ${collectionPath} has ${count} documents.`);
             totalCount += count;
         }
         const tot = document.getElementById('tot_orders');

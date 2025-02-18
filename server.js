@@ -15,6 +15,9 @@ app.get('/', async (req, res) => {
 app.get('/Signin', async (req, res) => {
   res.sendFile(__dirname + '/client/signin.html');
 });
+app.get('/Login', async (req, res) => {
+  res.sendFile(__dirname + '/client/login.html');
+});
 app.get('/Paninaro', async (req, res) => {
   res.sendFile(__dirname + '/client/paninaro.html');
 });
@@ -29,6 +32,9 @@ app.get('/Guadagni', async (req, res) => {
 });
 app.get('/Termini&Condizioni', async (req, res) => {
   res.sendFile(__dirname + '/client/regole.html');
+});
+app.get('/Sitemap', async (req, res) => {
+  res.sendFile(__dirname + '/client/sitemap.xml');
 });
 
 const PORT = process.env.PORT || 3000;
