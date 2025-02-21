@@ -63,7 +63,7 @@ app.get('/Spese', async (req, res) => {
 app.get('/Guadagni', async (req, res) => {
     res.sendFile(__dirname + '/client/money.html');
 });
-app.get('/Termini&Condizioni', async (req, res) => {
+app.get('/Termini-Condizioni', async (req, res) => {
     res.sendFile(__dirname + '/client/regole.html');
 });
 app.get('/Sitemap', async (req, res) => {
