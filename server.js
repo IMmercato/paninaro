@@ -25,7 +25,7 @@ app.use(session({
     secret: 'porcodio',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true } // Set secure to true if using HTTPS
+    cookie: { secure: false } // Set secure to true if using HTTPS
 }));
 
 const server = http.createServer(app);
