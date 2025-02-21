@@ -7,19 +7,47 @@ body {
 }
 
 .dashboard {
-    width: 100%;
     padding: 20px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 }
-.dashboard h1{
+.dashboard h1 {
     margin: 0;
     width: auto;
 }
+.dashboard svg {
+    margin: 0;
+    cursor: pointer;
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+}
+.dropdown a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+.dropdown a:hover {
+    background-color: #f0f0f0;
+}
 a {
     display: block;
-    margin-top: 15px;
     color: #007BFF;
     text-decoration: none;
 }

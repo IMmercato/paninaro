@@ -39,6 +39,12 @@
             background-color: #fff;
         }
 
+        #logoutForm {
+            display: none;
+            justify-content: center;
+            margin: 20px;
+        }
+
         @media (max-width: 600px) {
             #card {
                 width: 90%;
@@ -124,12 +130,16 @@
         </div>
         <div class="dashboard">Dashboard</div>
     </div>
+    <form id="logoutForm" action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
     <footer>
         <div class="container text-center">
             <big>Copyright &copy; Paninaro</big>
             <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
         </div>
     </footer>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
     <script type="module" src="clientside.js"></script>
 </body>
 

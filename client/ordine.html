@@ -12,7 +12,14 @@
     <div id="ordine"></div>
     <div class="dashboard">
         <h1>Food Cart</h1>
-        <a href="/Spese">Spese</a>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill"
+            viewBox="0 0 16 16" id="user-icon">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        </svg>
+        <div class="dropdown" id="dropdown-menu">
+            <a href="/Spese">Spese</a>
+            <a id="logout">Logout</a>
+        </div>
     </div>
     <div class="food-container">
         <!-- Food cards will be dynamically generated here -->
@@ -46,8 +53,8 @@
     <div class="help-button" onclick="showHelp()">Help</div>
     <footer>
         <div class="container text-center">
-          <big>Copyright &copy; Paninaro</big>
-          <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
+            <big>Copyright &copy; Paninaro</big>
+            <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
         </div>
     </footer>
     <script>
@@ -58,6 +65,18 @@
         function closeHelpPopup() {
             document.getElementById('help-popup').style.display = 'none';
         }
+
+
+        const userIcon = document.getElementById('user-icon');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        userIcon.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+        window.addEventListener('click', (event) => {
+            if (!userIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
     </script>
 
     <script type="module" src="clientside.js"></script>

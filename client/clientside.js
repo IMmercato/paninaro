@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
 import { getFirestore, setDoc, addDoc, updateDoc, deleteDoc, collection, doc, getDoc, getDocs, query, Timestamp, where } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBOrbHqvaKesB01CNajd62X5FlNzI0KgRc",
@@ -137,30 +137,58 @@ function paninaro() {
     const ordiniDiv = document.getElementById('ordini');
     const n = document.getElementById('n');
     const dashboard = document.querySelector('.dashboard');
+    const logout = document.getElementById('logoutForm');
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value;
         const password = document.getElementById('password').value;
-        if (name === 'admin' && password === 'admin') {
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, password })
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === 'Invalid username or password') {
+                alert(data);
+            } else {
+                window.location.href = '/Paninaro'; // Redirect to Paninaro after successful login
+            }
+        });
+    });
+
+    // Check if already logged in
+    fetch('/check-session', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.loggedIn) {
             ordiniDiv.style.display = 'block';
             form.style.display = 'none';
+            logout.style.display = 'block';
             const classNames = ["2IE", "1EA", "1IA", "1IB", "1IC", "1ID", "1IE", "1IF", "1IG", "1MA", "1MB", "2IA", "2IB", "2IC", "2ID", "2IF", "2IG", "2IH", "2MA", "2MB", "3IA", "3IB", "3IC", "3ID", "3IF", "3IG", "3MA", "3MB", "3UA", "4IA", "4IB", "4IC", "4ID", "4IF", "4MA", "4MB", "4UA", "5EA", "5IB", "5IA", "5IC", "5ID", "5IE", "5IF", "5MA"];
             details(classNames).catch(console.error);
-        } else {
-            ordiniDiv.style.display = 'none';
-            alert('Error: Invalid username or password. Please try again.');
         }
     });
 
     async function details(classNames) {
+        const now = new Date();
+        const currentHour = now.getHours();
+        const isWithinRealtimeWindow = currentHour >= 0 && currentHour < 12;
+
         for (const className of classNames) {
             const collectionPath = `orders/${className}/orders`;
             const collectionRef = collection(db, collectionPath);
-            const now = new Date();
-            const twentyFourHoursAgo = new Date();
-            twentyFourHoursAgo.setTime(now.getTime() - 24 * 60 * 60 * 1000);
-            const q = query(collectionRef, where('time', '>=', Timestamp.fromDate(twentyFourHoursAgo)), where('time', '<=', Timestamp.fromDate(now)));
+            const startDate = isWithinRealtimeWindow ? new Date(now.setHours(0, 0, 0, 0)) : new Date(now.setHours(12, 30, 0, 0));
+            const endDate = new Date(now.setHours(23, 59, 59, 999));
+            const q = query(collectionRef, where('time', '>=', Timestamp.fromDate(startDate)), where('time', '<=', Timestamp.fromDate(endDate)));
             const querySnapshot = await getDocs(q);
             const orders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             if (orders.length > 0) {
@@ -194,9 +222,11 @@ function paninaro() {
             </div>
         `;
         n.appendChild(card);
+
         const toggleButton = card.querySelector('.toggle-button');
         const detailsDiv = card.querySelector('.details');
         const confirmDeleteButton = card.querySelector('.confirm-delete');
+
         toggleButton.addEventListener('click', () => {
             detailsDiv.classList.toggle('expanded');
         });
@@ -214,14 +244,28 @@ function paninaro() {
         const collectionPath = `orders/${className}/orders`;
         for (const order of orders) {
             const orderRef = doc(db, collectionPath, order.id);
-            await updateDoc(orderRef, {
-                orderready: true
-            });
+            await updateDoc(orderRef, { orderready: true });
         }
     }
 
-    dashboard.addEventListener('click', () => {
-        window.location.href = '/Guadagni';
+    dashboard.addEventListener('click', function() {
+        window.open('/Guadagni', '_blank');
+    });
+    
+    
+
+    // Socket.io client code
+    const socket = io();
+
+    socket.on('orderUpdate', (orderData) => {
+        const { className, orders } = orderData;
+        generateOrderCard(className, orders);
+        /*const now = new Date();
+        const currentHour = now.getHours();
+        const isWithinRealtimeWindow = currentHour >= 0 && currentHour < 19;
+        if (isWithinRealtimeWindow) {
+            generateOrderCard(className, orders);
+        }*/
     });
 }
 
@@ -263,6 +307,18 @@ function order() {
                 <button class="remove-from-cart-btn" data-id="${food.id}" style="display:none;">Remove from Cart</button>
             `;
                 foodContainer.appendChild(foodCard);
+            });
+
+            const logout = document.getElementById("logout");
+            logout.addEventListener("click", () => {
+                signOut(auth)
+                    .then(() => {
+                        console.log("User signed out successfully");
+                        window.location.href = '/';
+                    })
+                    .catch((error) => {
+                        console.error("Error signing out user:", error);
+                    });
             });
 
             // Add event listener to add to cart buttons
@@ -427,8 +483,8 @@ function guadagni() {
             });
         }
         const tot = document.getElementById('tot_money');
-        tot.innerHTML = `Guadagno totale: ${totalCount}`;
-        console.log(`Total revenue: ${totalCount}`);
+        tot.innerHTML = `Guadagno totale: ${totalCount.toFixed(2)} €`;
+        console.log(`Total revenue: ${totalCount} €`);
         return totalCount;
     }
     totalmoney(classNames).catch(console.error);
