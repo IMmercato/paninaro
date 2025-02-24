@@ -5,11 +5,11 @@ const http = require('http');
 const socketIo = require('socket.io');
 const session = require('express-session');
 const Redis = require('ioredis');
-const connectRedis = require('connect-redis');
+const ConnectRedis = require('connect-redis');
 
 dotenv.config();
 
-const RedisStore = connectRedis(session);
+const RedisStore = ConnectRedis(session);
 const redisClient = new Redis(process.env.REDIS_URL);
 
 const app = express();
@@ -23,7 +23,7 @@ app.use(session({
     secret: 'porcodio',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set secure to true if using HTTPS
+    cookie: { secure: true } // Set secure to true if using HTTPS
 }));
 
 const server = http.createServer(app);
