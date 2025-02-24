@@ -1,26 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const http = require('http');
 const socketIo = require('socket.io');
 const session = require('express-session');
 const Redis = require('ioredis');
 const ConnectRedis = require('connect-redis');
 
-dotenv.config();
-
 const RedisStore = ConnectRedis(session);
-const redisClient = new Redis(process.env.REDIS_URL);
+const redisClient = new Redis({
+    host: process.env.REDIS_URL,
+    port: 6379,
+});
 
 const app = express();
-dotenv.config();
 app.use(express.static('client'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
     store: new RedisStore({ client: redisClient }),
-    secret: 'porcodio',
+    secret: 'porcodiodiocanmadonnasanta',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true } // Set secure to true if using HTTPS
