@@ -4,16 +4,13 @@ const dotenv = require('dotenv');
 const http = require('http');
 const socketIo = require('socket.io');
 const session = require('express-session');
-const admin = require('firebase-admin');
-const serviceAccount = require('./paninaro-9788d-firebase-adminsdk-fbsvc-83d6a0b877.json');
+const Redis = require('ioredis');
+const connectRedis = require('connect-redis');
 
 dotenv.config();
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
-
-const db = admin.firestore();
+const RedisStore = connectRedis(session);
+const redisClient = new Redis(process.env.REDIS_URL);
 
 const app = express();
 dotenv.config();
@@ -22,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
+    store: new RedisStore({ client: redisClient }),
     secret: 'porcodio',
     resave: false,
     saveUninitialized: true,
