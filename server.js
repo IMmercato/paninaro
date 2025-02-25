@@ -8,10 +8,7 @@ const Redis = require('ioredis');
 const ConnectRedis = require('connect-redis');
 
 const RedisStore = ConnectRedis(session);
-const redisClient = new Redis({
-    host: process.env.REDDIS_URL,
-    port: 6379,
-});
+const redisClient = new Redis(process.env.REDIS_URL);
 
 redisClient.on('error', function (err) {
     console.log('Could not establish a connection with redis. ' + err);
