@@ -9,21 +9,28 @@ const ConnectRedis = require('connect-redis');
 
 const RedisStore = ConnectRedis(session);
 const redisClient = new Redis({
-    host: process.env.REDIS_URL,
+    host: process.env.REDDIS_URL,
     port: 6379,
+});
+
+redisClient.on('error', function (err) {
+    console.log('Could not establish a connection with redis. ' + err);
+});
+redisClient.on('connect', function (err) {
+    console.log('Connected to redis successfully');
 });
 
 const app = express();
 app.use(express.static('client'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
     store: new RedisStore({ client: redisClient }),
     secret: 'porcodiodiocanmadonnasanta',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true } // Set secure to true if using HTTPS
+    cookie: { secure: false } // Set secure to true if using HTTPS
 }));
 
 const server = http.createServer(app);
