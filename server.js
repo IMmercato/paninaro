@@ -30,7 +30,7 @@ app.use(session({
     secret: 'porcodiodiocanmadonnasanta',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set secure to true if using HTTPS
+    cookie: { secure: false, httpOnly: false } // Set secure to true if using HTTPS
 }));
 
 const server = http.createServer(app);
