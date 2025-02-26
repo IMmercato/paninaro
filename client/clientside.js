@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
-import { getFirestore, setDoc, addDoc, updateDoc, deleteDoc, collection, doc, getDoc, getDocs, query, Timestamp, where } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+import { getFirestore, setDoc, addDoc, updateDoc, deleteDoc, collection, doc, getDoc, getDocs, onSnapshot, query, Timestamp, where } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
 import { getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
 
 const firebaseConfig = {
@@ -139,6 +139,8 @@ function paninaro() {
     const dashboard = document.querySelector('.dashboard');
     const logout = document.getElementById('logoutForm');
 
+    let unsubscribeFunctions = [];
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value;
@@ -182,21 +184,22 @@ function paninaro() {
         const now = new Date();
         const currentHour = now.getHours();
         const isWithinRealtimeWindow = currentHour >= 0 && currentHour < 12;
-
+    
         for (const className of classNames) {
             const collectionPath = `orders/${className}/orders`;
             const collectionRef = collection(db, collectionPath);
             const startDate = isWithinRealtimeWindow ? new Date(now.setHours(0, 0, 0, 0)) : new Date(now.setHours(12, 30, 0, 0));
             const endDate = new Date(now.setHours(23, 59, 59, 999));
             const q = query(collectionRef, where('time', '>=', Timestamp.fromDate(startDate)), where('time', '<=', Timestamp.fromDate(endDate)));
-            const querySnapshot = await getDocs(q);
-            const orders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            if (orders.length > 0) {
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+                const orders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 const filteredOrders = orders.filter(order => !order.orderready);
-                if (filteredOrders.length > 0) {
+                //n.innerHTML = '';
+                if (filteredOrders.length > 1) {
                     generateOrderCard(className, filteredOrders);
                 }
-            }
+            });
+            unsubscribeFunctions.push(unsubscribe);
         }
     }
 
@@ -251,21 +254,12 @@ function paninaro() {
     dashboard.addEventListener('click', function() {
         window.open('/Guadagni', '_blank');
     });
-    
-    
 
-    // Socket.io client code
-    const socket = io();
-
-    socket.on('orderUpdate', (orderData) => {
-        const { className, orders } = orderData;
-        generateOrderCard(className, orders);
-        /*const now = new Date();
-        const currentHour = now.getHours();
-        const isWithinRealtimeWindow = currentHour >= 0 && currentHour < 19;
-        if (isWithinRealtimeWindow) {
-            generateOrderCard(className, orders);
-        }*/
+    logout.addEventListener('submit', (e) => {
+        e.preventDefault();
+        unsubscribeFunctions.forEach(unsubscribe => unsubscribe());
+        console.log('Unsubscribed from all realtime updates');
+        logout.submit();
     });
 }
 

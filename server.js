@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const http = require('http');
-const socketIo = require('socket.io');
 const session = require('express-session');
 const Redis = require('ioredis');
 const ConnectRedis = require('connect-redis');
@@ -31,18 +30,6 @@ app.use(session({
 }));
 
 const server = http.createServer(app);
-const io = socketIo(server);
-
-io.on('connection', (socket) => {
-    console.log('New client connected');
-    socket.on('newOrder', (orderData) => {
-        io.emit('orderUpdate', orderData);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Client disconnected');
-    });
-});
 
 app.get('/', async (req, res) => {
     res.sendFile(__dirname + '/client/index.html');
@@ -93,6 +80,23 @@ app.get('/check-session', (req, res) => {
     } else {
         res.json({ loggedIn: false });
     }
+});
+
+app.post('/new-order', (req, res) => {
+    const { className, cart } = req.body;
+    const orderData = {
+        className,
+        orders: [{
+            time: new Date(),
+            cart // The cart items
+        }]
+    };
+    io.emit('newOrder', orderData);
+    res.status(200).send('Order received');
+});
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(__dirname + '/client/404.html');
 });
 
 const PORT = process.env.PORT || 3000;
