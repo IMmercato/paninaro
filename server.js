@@ -49,11 +49,17 @@ app.get('/Order', async (req, res) => {
 app.get('/Spese', async (req, res) => {
     res.sendFile(__dirname + '/client/spese.html');
 });
+app.get('/Ordini', async (req, res) => {
+    res.sendFile(__dirname + '/client/ordini.html');
+});
 app.get('/Guadagni', async (req, res) => {
     res.sendFile(__dirname + '/client/money.html');
 });
 app.get('/Termini-Condizioni', async (req, res) => {
     res.sendFile(__dirname + '/client/regole.html');
+});
+app.get('/Privacy-Policies', async (req, res) => {
+    res.sendFile(__dirname + '/client/privacy.html');
 });
 app.get('/Sitemap', async (req, res) => {
     res.sendFile(__dirname + '/client/sitemap.xml');
@@ -80,19 +86,6 @@ app.get('/check-session', (req, res) => {
     } else {
         res.json({ loggedIn: false });
     }
-});
-
-app.post('/new-order', (req, res) => {
-    const { className, cart } = req.body;
-    const orderData = {
-        className,
-        orders: [{
-            time: new Date(),
-            cart // The cart items
-        }]
-    };
-    io.emit('newOrder', orderData);
-    res.status(200).send('Order received');
 });
 
 app.use((req, res, next) => {

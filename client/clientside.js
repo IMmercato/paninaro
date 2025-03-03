@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const reserved = document.getElementById('paninaro')
     const money = document.getElementById('Guadagni')
     const ordine = document.getElementById('ordine')
+    const ordini = document.getElementById('ordini')
     if (signin) {
         register()
     } else if (reserved) {
@@ -32,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
         order()
     } else if (login) {
         logins()
+    } else if (ordini) {
+        receipt()
     } else {
         losess()
     }
@@ -487,35 +490,48 @@ function guadagni() {
     const onChartLoad = function () {
         const chart = this,
             series = chart.series[0];
-
-        setInterval(function () {
-            const x = (new Date()).getTime(),
-                y = Math.random();
-
-            series.addPoint([x, y], true, true);
+    
+        setInterval(() => {
+            let totalOrders = 0;
+            const x = (new Date()).getTime();
+    
+            const promises = classNames.map(className => {
+                return new Promise((resolve, reject) => {
+                    onSnapshot(collection(db, `orders/${className}/orders`), (snapshot) => {
+                        totalOrders += snapshot.size;
+                        resolve();
+                    }, reject);
+                });
+            });
+    
+            Promise.all(promises).then(() => {
+                series.addPoint([x, totalOrders], true, true);
+            }).catch(console.error);
         }, 1000);
     };
+    
     const data = (function () {
         const data = [];
         const time = new Date().getTime();
-
+    
         for (let i = -19; i <= 0; i += 1) {
             data.push({
                 x: time + i * 1000,
-                y: Math.random()
+                y: 0
             });
         }
         return data;
     }());
+    
     Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
         const point = e.point,
             series = e.target;
-
+    
         if (!series.pulse) {
             series.pulse = series.chart.renderer.circle()
                 .add(series.markerGroup);
         }
-
+    
         setTimeout(() => {
             series.pulse
                 .attr({
@@ -533,8 +549,7 @@ function guadagni() {
                 });
         }, 1);
     });
-
-
+    
     Highcharts.chart('chart', {
         chart: {
             type: 'spline',
@@ -542,15 +557,12 @@ function guadagni() {
                 load: onChartLoad
             }
         },
-
         time: {
             useUTC: false
         },
-
         title: {
-            text: 'Live random data'
+            text: 'Ordini in tempo reale'
         },
-
         accessibility: {
             announceNewData: {
                 enabled: true,
@@ -563,16 +575,14 @@ function guadagni() {
                 }
             }
         },
-
         xAxis: {
             type: 'datetime',
             tickPixelInterval: 150,
             maxPadding: 0.1
         },
-
         yAxis: {
             title: {
-                text: 'Value'
+                text: 'Ordini'
             },
             plotLines: [
                 {
@@ -582,23 +592,19 @@ function guadagni() {
                 }
             ]
         },
-
         tooltip: {
             headerFormat: '<b>{series.name}</b><br/>',
             pointFormat: '{point.x:%Y-%m-%d %H:%M:%S}<br/>{point.y:.2f}'
         },
-
         legend: {
             enabled: false
         },
-
         exporting: {
             enabled: false
         },
-
         series: [
             {
-                name: 'Random data',
+                name: 'Ordini effettuati',
                 lineWidth: 2,
                 color: Highcharts.getOptions().colors[2],
                 data
@@ -607,32 +613,56 @@ function guadagni() {
     });
 }
 
-function losess() {
-    onAuthStateChanged(auth, (user) => {
+function receipt() {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
-            async function lose(classNames) {
-                let totalCount = 0;
-                const collectionPath = `users/${user.uid}/stats`;
-                const collectionRef = collection(db, collectionPath);
-                const querySnapshot = await getDocs(collectionRef);
-                querySnapshot.forEach((doc) => {
-                    if (doc.exists()) {
-                        const data = doc.data();
-                        if (data.total !== undefined) {
-                            totalCount += data.total;
-                        }
-                    }
-                });
-                const tot = document.getElementById('lose');
-                tot.innerHTML = `Spese totali: ${totalCount}`;
-                console.log(`Total expenses: ${totalCount}`);
-                return totalCount;
-            }
-            const classNames = ["2IE", "1EA", "1IA", "1IB", "1IC", "1ID", "1IE", "1IF", "1IG", "1MA", "1MB", "2IA", "2IB", "2IC", "2ID", "2IF", "2IG", "2IH", "2MA", "2MB", "3IA", "3IB", "3IC", "3ID", "3IF", "3IG", "3MA", "3MB", "3UA", "4IA", "4IB", "4IC", "4ID", "4IF", "4MA", "4MB", "4UA", "5EA", "5IB", "5IA", "5IC", "5ID", "5IE", "5IF", "5MA"];
-            lose(classNames).catch(console.error);
+            const collectionPath = `users/${user.uid}/stats`;
+            const collectionRef = collection(db, collectionPath);
+            const querySnapshot = await getDocs(collectionRef);
+            querySnapshot.forEach((doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    const orderList = document.getElementById('ordini');
+                    const orderItem = document.createElement('li');
+                    orderItem.classList.add('receipt');
+                    orderItem.innerHTML = `
+                        <h3>Order ID: ${doc.id}</h3>
+                        <p>Cart: ${data.cart.map(item => `${item.id} - €${item.price}`).join(', ')}</p>
+                        <p>Total: €${data.total}</p>
+                        <p>Time: ${data.time.toDate().toLocaleString()}</p>
+                        <p>Status: ${data.orderready ? 'Order Ready' : 'Order Not Ready'}</p>
+                    `;
+                    orderList.appendChild(orderItem);
+                }
+            });
         } else {
-            alert("Anauthorized user");
-            console.log("GO Back")
+            alert("Unauthorized user");
+            window.location.href = '/';
+        }
+    });
+}
+
+function losess() {
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            let totalCount = 0;
+            const collectionPath = `users/${user.uid}/stats`;
+            const collectionRef = collection(db, collectionPath);
+            const querySnapshot = await getDocs(collectionRef);
+            querySnapshot.forEach((doc) => {
+                if (doc.exists()) {
+                    const data = doc.data();
+                    if (data.total !== undefined) {
+                        totalCount += data.total;
+                    }
+                }
+            });
+            const tot = document.getElementById('lose');
+            tot.innerHTML = `Spese totali: ${totalCount}`;
+            console.log(`Total expenses: ${totalCount}`);
+        } else {
+            alert("Unauthorized user");
+            window.location.href = '/';
         }
     });
 }
