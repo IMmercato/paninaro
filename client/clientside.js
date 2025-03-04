@@ -75,11 +75,17 @@ function register() {
             errorMessageDiv.textContent = "Please use an @itiseveripadova.edu.it email address.";
             return;
         }
+        const confirmClass = confirm(`Hai selezionato la classe: ${classe}. È corretta?`);
 
-        createUserWithEmailAndPassword(auth, email, password)
+        if (!confirmClass) {
+            errorMessageDiv.textContent = "Please select the correct class.";
+            return;
+        }
+
+    createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log("User registered successfully:", user);
+                console.log("User  registered successfully:", user);
                 const userRef = doc(db, "users", user.uid);
                 setDoc(userRef, {
                     name: name,
@@ -87,7 +93,7 @@ function register() {
                     classe: classe
                 })
                     .then(() => {
-                        console.log("User data saved to Firestore successfully.");
+                        console.log("User  data saved to Firestore successfully.");
                         window.location.href = '/Order';
                     })
                     .catch((error) => {
@@ -155,14 +161,14 @@ function paninaro() {
             },
             body: JSON.stringify({ name, password })
         })
-        .then(response => response.text())
-        .then(data => {
-            if (data === 'Invalid username or password') {
-                alert(data);
-            } else {
-                window.location.href = '/Paninaro'; // Redirect to Paninaro after successful login
-            }
-        });
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'Invalid username or password') {
+                    alert(data);
+                } else {
+                    window.location.href = '/Paninaro'; // Redirect to Paninaro after successful login
+                }
+            });
     });
 
     // Check if already logged in
@@ -172,22 +178,22 @@ function paninaro() {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.loggedIn) {
-            ordiniDiv.style.display = 'block';
-            form.style.display = 'none';
-            logout.style.display = 'block';
-            const classNames = ["2IE", "1EA", "1IA", "1IB", "1IC", "1ID", "1IE", "1IF", "1IG", "1MA", "1MB", "2IA", "2IB", "2IC", "2ID", "2IF", "2IG", "2IH", "2MA", "2MB", "3IA", "3IB", "3IC", "3ID", "3IF", "3IG", "3MA", "3MB", "3UA", "4IA", "4IB", "4IC", "4ID", "4IF", "4MA", "4MB", "4UA", "5EA", "5IB", "5IA", "5IC", "5ID", "5IE", "5IF", "5MA"];
-            details(classNames).catch(console.error);
-        }
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.loggedIn) {
+                ordiniDiv.style.display = 'block';
+                form.style.display = 'none';
+                logout.style.display = 'block';
+                const classNames = ["2IE", "1EA", "1IA", "1IB", "1IC", "1ID", "1IE", "1IF", "1IG", "1MA", "1MB", "2IA", "2IB", "2IC", "2ID", "2IF", "2IG", "2IH", "2MA", "2MB", "3IA", "3IB", "3IC", "3ID", "3IF", "3IG", "3MA", "3MB", "3UA", "4IA", "4IB", "4IC", "4ID", "4IF", "4MA", "4MB", "4UA", "5EA", "5IB", "5IA", "5IC", "5ID", "5IE", "5IF", "5MA"];
+                details(classNames).catch(console.error);
+            }
+        });
 
     async function details(classNames) {
         const now = new Date();
         const currentHour = now.getHours();
         const isWithinRealtimeWindow = currentHour >= 0 && currentHour < 12;
-    
+
         for (const className of classNames) {
             const collectionPath = `orders/${className}/orders`;
             const collectionRef = collection(db, collectionPath);
@@ -254,7 +260,7 @@ function paninaro() {
         }
     }
 
-    dashboard.addEventListener('click', function() {
+    dashboard.addEventListener('click', function () {
         window.open('/Guadagni', '_blank');
     });
 
@@ -490,11 +496,11 @@ function guadagni() {
     const onChartLoad = function () {
         const chart = this,
             series = chart.series[0];
-    
+
         setInterval(() => {
             let totalOrders = 0;
             const x = (new Date()).getTime();
-    
+
             const promises = classNames.map(className => {
                 return new Promise((resolve, reject) => {
                     onSnapshot(collection(db, `orders/${className}/orders`), (snapshot) => {
@@ -503,17 +509,17 @@ function guadagni() {
                     }, reject);
                 });
             });
-    
+
             Promise.all(promises).then(() => {
                 series.addPoint([x, totalOrders], true, true);
             }).catch(console.error);
         }, 1000);
     };
-    
+
     const data = (function () {
         const data = [];
         const time = new Date().getTime();
-    
+
         for (let i = -19; i <= 0; i += 1) {
             data.push({
                 x: time + i * 1000,
@@ -522,16 +528,16 @@ function guadagni() {
         }
         return data;
     }());
-    
+
     Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
         const point = e.point,
             series = e.target;
-    
+
         if (!series.pulse) {
             series.pulse = series.chart.renderer.circle()
                 .add(series.markerGroup);
         }
-    
+
         setTimeout(() => {
             series.pulse
                 .attr({
@@ -549,7 +555,7 @@ function guadagni() {
                 });
         }, 1);
     });
-    
+
     Highcharts.chart('chart', {
         chart: {
             type: 'spline',
