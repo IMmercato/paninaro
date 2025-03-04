@@ -5,8 +5,8 @@ window.onload = function () {
         consentBanner.innerHTML = `
             <div style="position:fixed;bottom:0;width:100%;background-color:gray;color:white;padding:10px;margin:0;text-align:center;">
                 This site uses cookies to enhance user experience. 
-                <a href="/privacy-policy.html" style="color:white;">Learn more</a> and 
-                <a href="/terms-conditions.html" style="color:white;">Terms & Conditions</a>
+                <a href="/Privacy-Policies" style="color:white;">Learn more</a> and 
+                <a href="/Termini-Condizioni" style="color:white;">Terms & Conditions</a>
                 <br>
                 <input type="checkbox" id="acceptPrivacy" /> I accept the Privacy Policy
                 <br>
