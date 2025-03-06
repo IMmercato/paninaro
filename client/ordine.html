@@ -21,6 +21,16 @@
             <a id="logout">Logout</a>
         </div>
     </div>
+
+    <div class="menu-container">
+        <input type="checkbox" role="button" aria-label="Display the menu" class="menu">
+        <div class="bar">
+            <a id="Panini">Panini</a>
+            <a id="Pizze">Pizze</a>
+            <a id="Bibite">Bibite</a>
+        </div>
+    </div>
+
     <div class="food-container">
         <!-- Food cards will be dynamically generated here -->
     </div>
@@ -76,6 +86,12 @@
             if (!userIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = 'none';
             }
+        });
+
+        const sidebar = document.querySelector('.menu');
+        const bar = document.querySelector('.bar');
+        sidebar.addEventListener('click', () => {
+            bar.style.display = bar.style.display === 'block' ? 'none' : 'block';
         });
     </script>
     <script src="app.js"></script>

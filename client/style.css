@@ -16,14 +16,17 @@ body {
     align-items: center;
     position: relative;
 }
+
 .dashboard h1 {
     margin: 0;
     width: auto;
 }
+
 .dashboard svg {
     margin: 0;
     cursor: pointer;
 }
+
 .dropdown {
     display: none;
     position: absolute;
@@ -37,15 +40,18 @@ body {
     z-index: 1000;
     padding: 10px;
 }
+
 .dropdown a {
     display: block;
     padding: 10px;
     text-decoration: none;
     color: #333;
 }
+
 .dropdown a:hover {
     background-color: #f0f0f0;
 }
+
 a {
     display: block;
     color: #007BFF;
@@ -56,6 +62,99 @@ a:hover {
     text-decoration: underline;
 }
 
+/* sidebar */
+.menu-container {
+    position: relative;
+}
+.bar {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 25%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 10px;
+}
+.bar a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+}
+.bar a:hover {
+    background-color: #f0f0f0;
+}
+.menu {
+    --s: 20px;
+    --c: black;
+    height: var(--s);
+    aspect-ratio: 1;
+    border: none;
+    padding: 0;
+    border-inline: calc(var(--s)/2) solid #0000;
+    box-sizing: content-box;
+    --_g1: linear-gradient(var(--c) 20%, #0000 0 80%, var(--c) 0) no-repeat content-box border-box;
+    --_g2: radial-gradient(circle closest-side at 50% 12.5%, var(--c) 95%, #0000) repeat-y content-box border-box;
+    background:
+        var(--_g2) left var(--_p, 0px) top,
+        var(--_g1) left calc(var(--s)/10 + var(--_p, 0px)) top,
+        var(--_g2) right var(--_p, 0px) top,
+        var(--_g1) right calc(var(--s)/10 + var(--_p, 0px)) top;
+    background-size:
+        20% 80%,
+        40% 100%;
+    position: relative;
+    clip-path: inset(0 25%);
+    -webkit-mask: linear-gradient(90deg, #0000, #000 25% 75%, #0000);
+    mask: linear-gradient(90deg, #0000, #000 25% 75%, #0000);
+    cursor: pointer;
+    transition:
+        background-position .3s var(--_s, .3s),
+        clip-path 0s var(--_s, .6s);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.menu:before,
+.menu:after {
+    content: "";
+    position: absolute;
+    border-radius: var(--s);
+    inset: 40% 0;
+    background: var(--c);
+    transition: transform .3s calc(.3s - var(--_s, .3s));
+}
+
+.menu:checked {
+    clip-path: inset(0);
+    --_p: calc(-1*var(--s));
+    --_s: 0s;
+}
+
+.menu:checked:before {
+    transform: rotate(45deg);
+}
+
+.menu:checked:after {
+    transform: rotate(-45deg);
+}
+
+.menu:focus-visible {
+    clip-path: none;
+    -webkit-mask: none;
+    mask: none;
+    border: none;
+    outline: 2px solid var(--c);
+    outline-offset: 5px;
+}
+
+
+/* cards */
 .food-container {
     display: flex;
     flex-wrap: wrap;
@@ -94,13 +193,15 @@ a:hover {
 .add-to-cart-btn:hover {
     background-color: #27ae60;
 }
-.remove-from-cart-btn{
+
+.remove-from-cart-btn {
     color: #fff;
     background-color: #ff4242;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
+
 .remove-from-cart-btn:hover {
     background-color: red;
 }
@@ -205,6 +306,7 @@ a:hover {
     cursor: pointer;
     border-radius: 12px;
 }
+
 /* Help Popup Styles */
 .help-popup {
     display: none;

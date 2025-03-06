@@ -46,7 +46,7 @@ function register() {
             document.getElementById("signin").style.display = "none";
             setTimeout(() => {
                 window.location.href = '/Order';
-            }, 1000)
+            }, 500)
         } else {
             document.getElementById("signin").style.display = "block";
         }
@@ -204,7 +204,7 @@ function paninaro() {
                 const orders = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 const filteredOrders = orders.filter(order => !order.orderready);
                 //n.innerHTML = '';
-                if (filteredOrders.length > 1) {
+                if (filteredOrders.length > 0) {
                     generateOrderCard(className, filteredOrders);
                 }
             });
@@ -288,8 +288,6 @@ function order() {
                 { id: 4, name: "Salad", price: 7.99 },
                 { id: 5, name: "Fries", price: 4.99 },
             ];
-
-            console.log("Food list:", foodList);
 
             // Cart
             let cart = [];
