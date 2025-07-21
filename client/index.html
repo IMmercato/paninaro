@@ -1,151 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="RtKg6sLjDAzLPMA1Bm6wAXFmMFkzVopLcyQkQNbdUYA" />
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <title>Paninaro</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-        }
-        div {
-            margin: 20px;
-        }
-
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            width: 100%;
-        }
-        li {
-            float: left;
-        }
-        li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        li a:hover:not(.active) {
-            background-color: #111;
-        }
-
-        h1, h3 {
-            font-family: Verdana;
-            margin: 0 0 10px 0;
-        }
-        p {
-            font-family: 'Courier New';
-            font-size: 20px;
-            color: black;
-        }
-        button {
-            width: 100px;
-            height: 25px;
-            background-color: #27ae60;
-            cursor:pointer;
-        }
-        mark:hover {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            font-size: 25px;
-        }
-        #cards{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .card{
-            margin: 0 10px 0 10px;
-            padding: 10px;
-            background-color: wheat;
-            border: #333 1px solid;
-            border-radius: 5px;
-            text-align: center; 
-        }
-        #location {
-            margin-top: 0;
-        }
-        iframe {
-            margin: 10px;
-            width: 75%;
-            height: 200px;
-            border: 0;
-        }
-        footer {
-            height: 75px;
-            width: 100%;
-            padding: 20px 0;
-            margin: 0;
-            position: relative;
-            bottom: 0;
-            background-color: #27ae60;
-            color: white;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <ul>
-        <li><a href="#">Paninaro</a></li>
-        <li style="float:right"><a href="#contact">Contact</a></li>
-        <li style="float:right"><a href="#news">News</a></li>
-        <li style="float:right"><a href="#home">Home</a></li>
-    </ul>
-    <div id="home">
-        <h1>Paninaro</h1>
-        <p style="width: 300px;">Qui potrai ordinare direttamente dal paninaro senza aspettare!</p>
-        <button onclick="location.href='/Signin'" type="button">Inizia</button>
-        <p>Questo servizio ti permette di ordinare i panini e le bevande <mark>in anticipo</mark> facendo meno coda!😁</p>
-    </div>
-    <div id="news">
-        <h1>Promozioni & Offerte</h1>
-        <p>In arrivo...</p>
-        <div id="cards">
-            <!--Generate cards-->
-        </div>
-    </div>
-    <div id="contact">
-        <h1>Contatti</h1>
-        <h3>Numero:</h3>
-        <p style="margin: 0;" id="number"><a href="tel:+393497449059">+39 3497449059</a></p>
-        <h3>Email:</h3>
-        <p style="margin: 0;"><a href="mailto:@gmail.com">email@gmail.com</a></p>
-    </div>
-    <div id="location">
-        <h3>Dove siamo</h3>
-        <p>Via Luigi Pettinati, 35129 Padova PD</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.628018887173!2d11.905416273690609!3d45.429450689320895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477edb8354e6f629%3A0x2a43442107752f3e!2sBIT%20Point%20Istituto%20Severi!5e0!3m2!1sit!2sit!4v1740504761185!5m2!1sit!2sit" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
+    <nav>
+        <ul>
+            <li class="brand">Paninaro</li>
+            <div class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">Promozioni</a></li>
+                <li><a href="#contact">Contatti</a></li>
+            </div>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <h1>Paninaro</h1>
+            <p>Ordina direttamente dal paninaro senza aspettare!</p>
+            <p>
+                Questo servizio ti permette di ordinare i panini e le bevande <mark>in anticipo</mark>, facendo meno coda! 😁
+            </p>
+            <a href="/Signin" class="cta-button">Inizia ora</a>
+        </section>
+
+        <!-- News/Promotions Section -->
+        <section id="news">
+            <h1>Promozioni & Offerte</h1>
+            <p>In arrivo...</p>
+            <div id="cards">
+                <div class="card">
+                    <h3>Panino del Giorno</h3>
+                    <p>Prova il nostro panino speciale a soli €4.99!</p>
+                </div>
+                <div class="card">
+                    <h3>Bevi uno, prendine due</h3>
+                    <p>Acquista una bibita, la seconda è GRATIS!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h1>Contatti</h1>
+            <h3>Numero:</h3>
+            <p><a href="tel:+393497449059">+39 349 744 9059</a></p>
+            <h3>Email:</h3>
+            <p><a href="mailto:email@gmail.com">email@gmail.com</a></p>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location">
+            <h3>Dove siamo</h3>
+            <p>Via Luigi Pettinati, 35129 Padova PD</p>
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d588.628018887173!2d11.905416273690609!3d45.429450689320895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477edb8354e6f629%3A0x2a43442107752f3e!2sBIT%20Point%20Istituto%20Severi!5e0!3m2!1sit!2sit!4v1740504761185!5m2!1sit!2sit"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </section>
+    </main>
+
     <footer>
         <div class="container text-center">
-            <big>Copyright &copy; Paninaro</big>
-            <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a>
+            <big>Copyright &copy; Paninaro 2025</big><br />
+            Website built by <a target="_blank" href=" https://github.com/IMmercato ">Unknown</a>
         </div>
     </footer>
+
     <script src="script.js"></script>
     <script src="app.js"></script>
 </body>
-
 </html>
 <!--
   \_\_\
