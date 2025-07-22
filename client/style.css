@@ -44,6 +44,21 @@ main {
 }
 
 /* ==================== */
+/*   SignIn             */
+/* ==================== */
+#signin {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== */
 /*   Navigation Bar     */
 /* ==================== */
 nav ul {
@@ -482,13 +497,25 @@ nav .nav-links {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .help-button {
@@ -581,7 +608,7 @@ mark:hover {
 
 /* === Sezione Hero === */
 #home {
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_nuit_v2-scaled.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_nuit_v2-scaled.jpg');
     background-size: cover;
     background-position: center;
     color: white;
@@ -757,7 +784,7 @@ footer a:hover {
         width: 95%;
         padding: 20px;
     }
-    
+
     #home h1 {
         font-size: 36px;
     }
@@ -765,7 +792,7 @@ footer a:hover {
     #call-to-action h2 {
         font-size: 28px;
     }
-    
+
     mark {
         font-size: 18px;
     }

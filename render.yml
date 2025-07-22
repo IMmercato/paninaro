@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: paninaro
+    env: node
+    region: frankfurt
+    plan: starter
+    repo: https://github.com/IMmercato/paninaro
+    branch: main
+    buildCommand: "npm install && npm run build"
+    startCommand: "node server.js"
+    healthCheckPath: /api/health
+    headers:
+      - path: "/*"
+        name: "Cross-Origin-Opener-Policy"
+        value: "same-origin-allow-popups"

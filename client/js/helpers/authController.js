@@ -1,22 +1,19 @@
-import { auth } from './firebase.js';
-import { onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+import { auth, db } from './firebase.js';
+import { onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
 
 /**
  * Run `init(user)` only if logged in; otherwise redirect.
- * @param {function(firebase.User)} init 
- * @param {string} redirectUrl 
  */
-
 export function requireAuth(init, redirectUrl = '/') {
-    onAuthStateChanged(auth, user =>{
-        if(user) init(user);
-        else window.location.href = redirectUrl;
-    });
+  onAuthStateChanged(auth, user => {
+    if (user) init(user);
+    else window.location.href = redirectUrl;
+  });
 }
 
 /**
  * If user is already logged in, send them to `redirectUrl`.
- * @param {string} redirectUrl 
  */
 export function redirectIfAuth(redirectUrl = '/Order') {
   onAuthStateChanged(auth, user => {
@@ -26,11 +23,36 @@ export function redirectIfAuth(redirectUrl = '/Order') {
 
 /**
  * Sign out current user and go to `redirectUrl`.
- * @param {string} redirectUrl 
  */
-
 export function logout(redirectUrl = '/') {
-    signOut(auth)
+  signOut(auth)
     .then(() => window.location.href = redirectUrl)
-    .catch(err => console.error('Logout Failed', err))
+    .catch(err => console.error('Logout Failed', err));
+}
+
+/**
+ * Sign/Login using Google Provider
+ */
+export async function handleGoogleSignIn(redirectUrl = '/Order') {
+  const provider = new GoogleAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        name: user.displayName,
+        email: user.email,
+      });
+    }
+    
+    window.location.href = redirectUrl;
+
+  } catch (err) {
+    console.error("Errore durante il login con Google:", err);
+    alert("Login con Google fallito. Riprova.");
+  }
 }
