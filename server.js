@@ -49,8 +49,8 @@ app.get('/Order', async (req, res) => {
 app.get('/Spese', async (req, res) => {
     res.sendFile(__dirname + '/client/spese.html');
 });
-app.get('/Ordini', async (req, res) => {
-    res.sendFile(__dirname + '/client/ordini.html');
+app.get('/Receipt', async (req, res) => {
+    res.sendFile(__dirname + '/client/receipt.html');
 });
 app.get('/Guadagni', async (req, res) => {
     res.sendFile(__dirname + '/client/money.html');
