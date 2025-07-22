@@ -2,3 +2,4 @@ node_modules
 .env
 dump.rdb
 temp-15064.rdb
+package-lock.json

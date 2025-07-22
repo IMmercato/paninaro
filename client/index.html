@@ -16,8 +16,10 @@
         <ul>
             <li class="brand">Paninaro</li>
             <div class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#news">Promozioni</a></li>
+                <li><a href="#home">Inizia</a></li>
+                <li><a href="#functions">Funzionalità</a></li>
+                <li><a href="#prezzi">Prezzi</a></li>
+                <li><a href="#feedback">Feedback</a></li>
                 <li><a href="#contact">Contatti</a></li>
             </div>
         </ul>
@@ -27,28 +29,113 @@
         <!-- Home Section -->
         <section id="home">
             <h1>Paninaro</h1>
-            <p>Ordina direttamente dal paninaro senza aspettare!</p>
+            <p>Il gestionale perfetto per locali come il tuo. Veloce, moderno e su misura.</p>
             <p>
-                Questo servizio ti permette di ordinare i panini e le bevande <mark>in anticipo</mark>, facendo meno coda! 😁
+                Dimentica Excel, usa Paninaro e <mark>semplifica</mark> la gestione del tuo locale.
             </p>
             <a href="/Signin" class="cta-button">Inizia ora</a>
         </section>
 
-        <!-- News/Promotions Section -->
-        <section id="news">
-            <h1>Promozioni & Offerte</h1>
-            <p>In arrivo...</p>
-            <div id="cards">
+        <!-- Functions Section -->
+        <section id="functions">
+            <h2>Perchè scegliere Paninaro?</h2>
+            <div class="functions-grid">
                 <div class="card">
-                    <h3>Panino del Giorno</h3>
-                    <p>Prova il nostro panino speciale a soli €4.99!</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tablet-smartphone">
+                        <rect x="12" y="12" width="8" height="12" rx="2"/>
+                        <path d="M12 18h.01"/><path d="M7 12V2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v10"/>
+                        <path d="M18 2v10a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <h3>Gestione Ordini Intuitiva</h3>
+                    <p>Prendi ordini rapidamente, gestisci tavoli e consegne con un'interfaccia semplice e reattiva su qualsiasi dispositivo.</p>
                 </div>
                 <div class="card">
-                    <h3>Bevi uno, prendine due</h3>
-                    <p>Acquista una bibita, la seconda è GRATIS!</p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bar-chart-2">
+                        <path d="M18 20V10"/>
+                        <path d="M12 20V4"/>
+                        <path d="M6 20v-6"/>
+                    </svg>
+                    <h3>Reportistica Avanzata</h3>
+                    <p>Ottieni insight dettagliati sulle vendite, sui prodotti più popolari e sulle performance del personale per decisioni informate.</p>
+                </div>
+                <div class="card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chef-hat">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+                        <path d="M17 17c.6 0 1-.4 1-1V2c0-.6-.4-1-1-1H7c-.6 0-1 .4-1 1v14c0 .6.4 1 1 1"/>
+                        <path d="M15 5c0 2.2-1.8 4-4 4H7V5h4c2.2 0 4 1.8 4 4z"/>
+                    </svg>
+                    <h3>Gestione del Personale</h3>
+                    <p>Assegna ruoli, gestisci turni e monitora le attività del tuo team per massimizzare l'efficienza.</p>
+                </div>
+                <div class="card">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wallet">
+                        <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4h12a2 2 0 0 1 0 4H5a2 2 0 0 0 0 4v-3"/>
+                        <path d="M2 7h10a2 2 0 0 1 0 4H2a2 2 0 0 1 0-4z"/>
+                    </svg>
+                    <h3>Pagamenti Semplificati</h3>
+                    <p>Accetta pagamenti in diversi modalità, gestisci sconti e chiudi il conto con facilità e sicurezza.</p>
                 </div>
             </div>
         </section>
+
+        <!-- News/Promotions Section -->
+        <section id="prezzi">
+            <h1>Piani & Offerte</h1>
+            <div id="cards">
+                <div class="card">
+                    <h3>Free</h3>
+                    <p>Piano Gratuito per iniziare con 0 spese</p>
+                    <ul>
+                        <li>Fino a 50 ordini/mese</li>
+                        <li>Gestione Menù Base</li>
+                        <li>Supporto Email</li>
+                    </ul>
+                    <a href="/Signin" class="cta-button">Prova Free</a>
+                </div>
+                <div class="card pro-highlight">
+                    <h3>Pro</h3>
+                    <p>La miglior scelta per crescere la tua attività a partire da 29.99€/mese</p>
+                    <ul>
+                        <li>Ordini Illimitati</li>
+                        <li>Dashboard Analitico</li>
+                        <li>Branding personalizzato</li>
+                        <li>Supporto prioritario</li>
+                    </ul>
+                    <a href="/Signin" class="cta-button">Prova Pro</a>
+                </div>
+                <div class="card">
+                    <h3>Azienda</h3>
+                    <p>Ampia la gestione dei tuoi locali con un unico gestore a partire da 99.99€/mese</p>
+                    <ul>
+                        <li>Più locali</li>
+                        <li>Analisi avanzate</li>
+                        <li>Accesso API</li>
+                        <li>Supporto diretto</li>
+                    </ul>
+                    <a href="/Signin" class="cta-button">Scopri Azienda</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback">
+            <h2>Cosa dicono i nostri clienti</h2>
+            <div class="feedback-card">
+                <p>"Paninaro ha rivoluzionato il modo in cui gestiamo il nostro locale. Interfaccia intuitiva e supporto eccellente!"</p>
+                <h4>— Luca, Paninoteca Milano</h4>
+            </div>
+            <div class="feedback-card">
+                <p>"Finalmente un software pensato per chi lavora nel food. Lo consiglio a tutti i miei colleghi."</p>
+                <h4>— Martina, Bistrot Bologna</h4>
+            </div>
+        </section>
+
+        <!-- Call-to-action -->
+         <section id="call-to-action">
+            <h2>Pronto a Trasformare il Tuo Locale?</h2>
+            <p>Unisciti a centinaia di ristoratori che hanno già scelto Paninaro per una gestione più smart e profittevole.</p>
+            <a href="/Signin" class="cta-button">Inizia Ora la Tua Prova Gratuita</a>
+         </section>
 
         <!-- Contact Section -->
         <section id="contact">
@@ -75,7 +162,7 @@
     <footer>
         <div class="container text-center">
             <big>Copyright &copy; Paninaro 2025</big><br />
-            Website built by <a target="_blank" href=" https://github.com/IMmercato ">Unknown</a>
+            Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a>
         </div>
     </footer>
 

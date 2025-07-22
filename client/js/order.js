@@ -26,8 +26,8 @@ function initOrder(user) {
     card.innerHTML = `
         <h3>${food.name}</h3>
         <p>Price: €${food.price}</p>
-        <button class="add"   data-id="${food.id}">Add to Cart</button>
-        <button class="remove" data-id="${food.id}" style="display:none;">Remove</button>
+        <button class="add-to-cart-btn"   data-id="${food.id}">Add to Cart</button>
+        <button class="remove-from-cart-btn" data-id="${food.id}" style="display:none;">Remove</button>
       `;
     container.appendChild(card);
   });
@@ -52,11 +52,11 @@ function initOrder(user) {
     const food = foodList.find(f => f.id === id);
     if (!food) return;
 
-    if (e.target.classList.contains("add")) {
+    if (e.target.classList.contains("add-to-cart-btn")) {
       cart.push(food);
       e.target.style.display = "none";
       e.target.nextElementSibling.style.display = "inline-block";
-    } else if (e.target.classList.contains("remove")) {
+    } else if (e.target.classList.contains("remove-from-cart-btn")) {
       cart = cart.filter(f => f.id !== id);
       e.target.style.display = "none";
       e.target.previousElementSibling.style.display = "inline-block";

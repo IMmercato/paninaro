@@ -52,7 +52,7 @@ function getCookie(name) {
     return null;
 }
 
-const menù = [
+/*const menù = [
     { name: "Pizza + Bibità", price: 3.00 },
     { name: "Panino + Bibità", price: 3.50 },
 ];
@@ -66,4 +66,4 @@ menù.forEach((menu) => {
     <p>€${menu.price}</p>
     `
     cards.append(card);
-});
+});*/
