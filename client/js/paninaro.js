@@ -7,7 +7,7 @@ import {
   updateDoc,
   doc,
   Timestamp
-} from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+} from 'firebase/firestore';
 
 let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");

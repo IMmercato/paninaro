@@ -4,7 +4,7 @@ import {
   getDoc,
   collection,
   addDoc
-} from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+} from 'firebase/firestore';
 import { requireAuth, logout } from './helpers/authController.js';
 
 function initOrder(user) {

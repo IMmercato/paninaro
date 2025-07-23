@@ -1,5 +1,5 @@
 import { auth } from './helpers/firebase.js';
-import { signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { handleGoogleSignIn } from './helpers/authController.js';
 
 function initLogin() {

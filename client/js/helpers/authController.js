@@ -1,6 +1,6 @@
 import { auth, db } from './firebase.js';
-import { onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
-import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+import { onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 /**
  * Run `init(user)` only if logged in; otherwise redirect.
