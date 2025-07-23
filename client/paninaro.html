@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
     <title>Paninaro</title>
 </head>
@@ -11,54 +12,88 @@
 <body>
     <div class="slide-container">
         <section class="slide active">
-            <h1>Hey name, Benvenuto a Paninaro.</h1>
-            <h3>Continua compilando questi semplici domande...</h3>
+            <h1>Benvenuto, <span id="ownerName">Nome</span>, su Paninaro!</h1>
+            <h3>Iniziamo! Rispondi a queste semplici domande per configurare il tuo ristorante.</h3>
             <button type="button" onclick="nextSlide()">Avanti</button>
         </section>
         <section class="slide">
             <h3>Come si chiama il suo locale?</h3>
-            <form id="resturant">
-                <input type="text" name="resturantName" placeholder="Resturant Name" required>
+            <form id="restaurant">
+                <input type="text" name="restaurantName" placeholder="Nome del Ristorante" required>
                 <input type="text" name="location" placeholder="Dove si trova?" required>
                 <button type="button" onclick="nextSlide()">Avanti</button>
             </form>
         </section>
         <section class="slide">
-            <h3>Continua compilando questi semplici domande...</h3>
+            <h3>Il tuo Ruolo nel locale?</h3>
             <form id="data">
-                <input type="text" name="data" id="dt" placeholder="data">
+                <div class="roles">
+                    <div class="card role">
+                        <i class="material-icons">business</i>
+                        <h3>Proprietario</h3>
+                    </div>
+                    <div class="card role">
+                        <i class="material-icons">supervisor_account</i>
+                        <h3>Manager</h3>
+                    </div>
+                    <div class="card role">
+                        <i class="material-icons">restaurant</i>
+                        <h3>Staff</h3>
+                    </div>
+                    <div class="card role">
+                        <i class="material-icons">event</i>
+                        <h3>Organizzatore</h3>
+                    </div>
+                </div>
                 <button type="button" onclick="nextSlide()">Avanti</button>
             </form>
         </section>
     </div>
 
     <section id="final-section">
-        <h1>hello</h1>
+        <div>
+            <nav class="navbar">
+                <div class="navbar-item">
+                    <h1>Attività</h1>
+                </div>
+                <div class="navbar-item">
+                    <h1>Ordini</h1>
+                </div>
+                <div class="navbar-item">
+                    <h1>Guadagni</h1>
+                </div>
+                <div class="navbar-item">
+                    <h1>Gestisci</h1>
+                </div>
+                <div class="navbar-item">
+                    <i class="material-icons">add</i>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <h1>Seleziona il servizio desiderato</h1>
+            <div class="select">
+                <div class="card" id="order">
+                    <h3>Gestisci gli ordini</h3>
+                    <p>Ricevi e organizza le comande in modo semplice e veloce.</p>
+                </div>
+                <div class="card" id="booking">
+                    <h3>Gestisci le prenotazioni</h3>
+                    <p>Controlla i tavoli disponibili e le richieste dei clienti.</p>
+                </div>
+            </div>
+        </div>
     </section>
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll(".slide");
 
-        function nextSlide() {
-            if (currentSlide < slides.length - 1) {
-                slides[currentSlide].classList.remove("active");
-                currentSlide++;
-                slides[currentSlide].classList.add("active");
-            }
-        }
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Complimenti, Setup completato 🥳</h2>
+            <p>Ora puoi gestire il tuo locale da questa dashboard. Benvenuto a bordo!</p>
+            <button id="accept-btn">Ok</button>
+        </div>
+    </div>
 
-        document.getElementById("data").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            document.querySelector(".slide-container").style.display = "none";
-            document.getElementById("final-section").classList.add("active");
-        });
-    </script>
+    <script type="module" src="./js/paninaro.js"></script>
 </body>
 
 </html>
-<!--
-  \_\_\
-  |0__0|
-   \__/
--->

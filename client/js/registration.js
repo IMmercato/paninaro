@@ -37,7 +37,9 @@ function initRegister() {
         contact: email,
         restaurantIds: []
       });
+
       window.location.href = '/Paninaro';
+
     } catch (err) {
       errorDiv.textContent = err.message;
     }
