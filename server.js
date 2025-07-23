@@ -2,32 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 const http = require('http');
-const session = require('express-session');
-const Redis = require('ioredis');
-const ConnectRedis = require('connect-redis');
-
-const RedisStore = ConnectRedis(session);
-const redisClient = new Redis(process.env.REDIS_URL);
-
-redisClient.on('error', function (err) {
-    console.log('Could not establish a connection with redis. ' + err);
-});
-redisClient.on('connect', function (err) {
-    console.log('Connected to redis successfully');
-});
 
 const app = express();
 app.use(express.static('client'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({
-    store: new RedisStore({ client: redisClient }),
-    secret: 'porcodiodiocanmadonnasanta',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false, httpOnly: false } // Set secure to true if using HTTPS
-}));
 
 const server = http.createServer(app);
 
@@ -63,29 +43,6 @@ app.get('/Privacy-Policies', async (req, res) => {
 });
 app.get('/Sitemap', async (req, res) => {
     res.sendFile(__dirname + '/client/sitemap.xml');
-});
-app.post('/login', (req, res) => {
-    const { name, password } = req.body;
-    if (name === process.env.ADMIN_NAME && password === process.env.ADMIN_PASSWORD) {
-        req.session.loggedIn = true;
-        console.log('Logged in');
-        res.redirect('/Paninaro');
-    } else {
-        res.send('Invalid username or password');
-    }
-});
-app.post('/logout', (req, res) => {
-    req.session.destroy();
-    console.log('Destroyed session');
-    res.redirect('/Paninaro');
-});
-
-app.get('/check-session', (req, res) => {
-    if (req.session.loggedIn) {
-        res.json({ loggedIn: true });
-    } else {
-        res.json({ loggedIn: false });
-    }
 });
 
 app.use((req, res, next) => {
