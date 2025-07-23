@@ -1,145 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Paninaro</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #n {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        #card {
-            width: 300px;
-            margin: 10px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
-
-        #logoutForm {
-            display: none;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        @media (max-width: 600px) {
-            #card {
-                width: 90%;
-            }
-        }
-
-        .toggle-button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .toggle-button:hover {
-            background-color: #218838;
-        }
-
-        .details {
-            padding: 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .details p {
-            margin-bottom: 10px;
-        }
-
-        .expanded {
-            max-height: max-content;
-            padding: 20px;
-            transition: max-height 0.3s ease-in;
-        }
-
-        #ordini {
-            display: none;
-        }
-
-        .dashboard {
-            background-color: #28a745;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 12px;
-        }
-
-        footer {
-            height: 75px;
-            width: 100%;
-            padding: 20px;
-            margin: 20px 0 0 0;
-            position: relative;
-            bottom: 0;
-            background-color: #27ae60;
-            color: white;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-    </style>
 </head>
 
 <body>
-    <h1>Paninaro</h1>
-    <form id="paninaro">
-        <input type="text" id="name" placeholder="Nome" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit">Invia</button>
-    </form>
-    <div id="ordini">
-        <h1>N di Ordini ricevuti: 0</h1>
-        <div id="n">
-            <!--Generate the oder card-->
-        </div>
-        <div class="dashboard">Dashboard</div>
+    <div class="slide-container">
+        <section class="slide active">
+            <h1>Hey name, Benvenuto a Paninaro.</h1>
+            <h3>Continua compilando questi semplici domande...</h3>
+            <button type="button" onclick="nextSlide()">Avanti</button>
+        </section>
+        <section class="slide">
+            <h3>Come si chiama il suo locale?</h3>
+            <form id="resturant">
+                <input type="text" name="resturantName" placeholder="Resturant Name" required>
+                <input type="text" name="location" placeholder="Dove si trova?" required>
+                <button type="button" onclick="nextSlide()">Avanti</button>
+            </form>
+        </section>
+        <section class="slide">
+            <h3>Continua compilando questi semplici domande...</h3>
+            <form id="data">
+                <input type="text" name="data" id="dt" placeholder="data">
+                <button type="button" onclick="nextSlide()">Avanti</button>
+            </form>
+        </section>
     </div>
-    <form id="logoutForm" action="/logout" method="post">
-        <button type="submit">Logout</button>
-    </form>
-    <footer>
-        <div class="container text-center">
-            <big>Copyright &copy; Paninaro</big>
-            <i>Website built by <a target="_blank" href="https://github.com/IMmercato">Unknown</a></i>
-        </div>
-    </footer>
-    <script type="module" src="./js/paninaro.js"></script>
+
+    <section id="final-section">
+        <h1>hello</h1>
+    </section>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".slide");
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                slides[currentSlide].classList.remove("active");
+                currentSlide++;
+                slides[currentSlide].classList.add("active");
+            }
+        }
+
+        document.getElementById("data").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            document.querySelector(".slide-container").style.display = "none";
+            document.getElementById("final-section").classList.add("active");
+        });
+    </script>
 </body>
 
 </html>

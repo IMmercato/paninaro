@@ -4,15 +4,14 @@ import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-f
 import { redirectIfAuth, handleGoogleSignIn } from './helpers/authController.js';
 
 function initRegister() {
-  const form = document.getElementById("form");
+  const form        = document.getElementById("form");
   const nameInput   = document.getElementById("name");
   const emailInput  = document.getElementById("email");
   const passwordInput = document.getElementById("password");
-  const errorDiv      = document.getElementById("error-message");
-  const googleBtn     = document.getElementById("google-auth-btn")
+  const errorDiv    = document.getElementById("error-message");
+  const googleBtn   = document.getElementById("google-auth-btn");
 
-  // Redirect if already signed in
-  redirectIfAuth('/Order')
+  redirectIfAuth('/Paninaro');
 
   googleBtn.addEventListener("click", () => {
     handleGoogleSignIn();
@@ -20,7 +19,7 @@ function initRegister() {
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
-    errorDiv.textContent = '';  // reset
+    errorDiv.textContent = '';
     const name     = nameInput.value.trim();
     const email    = emailInput.value.trim();
     const password = passwordInput.value.trim();
@@ -32,9 +31,13 @@ function initRegister() {
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      const userRef = doc(db, "users", user.uid);
-      await setDoc(userRef, { name, email});
-      window.location.href = '/Order';
+      const ownerRef = doc(db, "owners", user.uid);
+      await setDoc(ownerRef, {
+        name,
+        contact: email,
+        restaurantIds: []
+      });
+      window.location.href = '/Paninaro';
     } catch (err) {
       errorDiv.textContent = err.message;
     }

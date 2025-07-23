@@ -15,7 +15,7 @@ export function requireAuth(init, redirectUrl = '/') {
 /**
  * If user is already logged in, send them to `redirectUrl`.
  */
-export function redirectIfAuth(redirectUrl = '/Order') {
+export function redirectIfAuth(redirectUrl = '/Paninaro') {
   onAuthStateChanged(auth, user => {
     if (user) window.location.href = redirectUrl;
   });
@@ -33,19 +33,20 @@ export function logout(redirectUrl = '/') {
 /**
  * Sign/Login using Google Provider
  */
-export async function handleGoogleSignIn(redirectUrl = '/Order') {
+export async function handleGoogleSignIn(redirectUrl = '/Paninaro') {
   const provider = new GoogleAuthProvider();
   try {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    const userRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(userRef);
+    const ownerRef = doc(db, "owners", user.uid);
+    const docSnap = await getDoc(ownerRef);
 
     if (!docSnap.exists()) {
-      await setDoc(userRef, {
+      await setDoc(ownerRef, {
         name: user.displayName,
         email: user.email,
+        restaurantIds: [],
       });
     }
     

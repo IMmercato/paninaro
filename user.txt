@@ -1,0 +1,30 @@
+resturant owner account
+- Owner name
+- Owner contact
+- Resturant name
+- Place
+
+Users per resturant
+- User name
+- User contact
+
+Database structure
+owners/
+  └── ownerId/
+        ├── name
+        ├── contact
+        ├── restaurantIds: [r1, r2]
+
+restaurants/
+  └── restaurantId/
+        ├── name
+        ├── place
+        ├── ownerId
+        ├── userIds: [u1, u2]
+
+users/
+  └── userId/
+        ├── name
+        ├── contact
+        ├── restaurantId
+        ├── orders: [...]
