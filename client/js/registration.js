@@ -31,12 +31,20 @@ function initRegister() {
 
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      const ownerRef = doc(db, "owners", user.uid);
-      await setDoc(ownerRef, {
-        name,
-        contact: email,
-        restaurantIds: []
+      
+      const API_URL = process.env.API_URL;
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "aplication-json" },
+        body: JSON.stringify({
+          uid: user.uid,
+          name: name,
+          email: user.email
+        })
       });
+
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || "Backend failed to write user");
 
       window.location.href = '/Paninaro';
 

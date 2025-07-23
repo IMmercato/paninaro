@@ -39,17 +39,20 @@ export async function handleGoogleSignIn(redirectUrl = '/Paninaro') {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    const ownerRef = doc(db, "owners", user.uid);
-    const docSnap = await getDoc(ownerRef);
+    const API_URL = process.env.API_URL;
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "aplication-json" },
+      body: JSON.stringify({
+        uid: user.uid,
+        name: name,
+        email: user.email
+      })
+    });
 
-    if (!docSnap.exists()) {
-      await setDoc(ownerRef, {
-        name: user.displayName,
-        email: user.email,
-        restaurantIds: [],
-      });
-    }
-    
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || "Backend failed to write user");
+
     window.location.href = redirectUrl;
 
   } catch (err) {
