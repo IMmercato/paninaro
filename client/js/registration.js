@@ -10,11 +10,15 @@ function initRegister() {
   const passwordInput = document.getElementById("password");
   const errorDiv    = document.getElementById("error-message");
   const googleBtn   = document.getElementById("google-auth-btn");
+  let popupInProgress = false;
 
   redirectIfAuth('/Paninaro');
 
   googleBtn.addEventListener("click", () => {
+    if (popupInProgress) return;
+    popupInProgress = true;
     handleGoogleSignIn();
+    popupInProgress = false;
   });
 
   form.addEventListener("submit", async e => {
@@ -35,7 +39,7 @@ function initRegister() {
       const API_URL = process.env.API_URL;
       const res = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "aplication-json" },
+        headers: { "Content-Type": "application-json" },
         body: JSON.stringify({
           uid: user.uid,
           name: name,
