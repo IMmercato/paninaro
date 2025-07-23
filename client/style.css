@@ -52,6 +52,8 @@ main {
     flex-direction: column;
     background-color: #fff;
     border-radius: 8px;
+    align-self: center;
+    align-items: center;
     border: 1px solid #ddd;
     width: 90%;
     max-width: 400px;

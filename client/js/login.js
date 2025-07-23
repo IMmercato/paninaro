@@ -25,7 +25,7 @@ function initLogin() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      window.location.href = "/Order";
+      window.location.href = "/Paninaro";
     } catch (err) {
       errorDiv.textContent = err.message;
     }
