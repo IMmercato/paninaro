@@ -1,43 +1,55 @@
 # Firebase Admin Service
 
-Microservizio Node/Express che espone un endpoint per scrivere in Firestore i dati di registrazione di un utente.
+A Node/Express microservice that exposes an endpoint to write user registration data to Firestore.
 
-## Prerequisiti
+## 🔧 Prerequisites
 
-- Node.js v16+  
-- Account Firebase con Service Account key
+- Node.js v16 or higher  
+- Firebase account with a Service Account key
 
-## Setup locale
+## 🧪 Local Setup
 
-1. Clona questa repo  
-2. `npm install`  
-3. Crea un file `.env` (o configura su Render) con la variabile: GOOGLE_SERVICE_ACCOUNT_JSON='{"type": "...", "project_id": "...", ...}'
-4. Avvia in locale: `npm run start`
+1. Clone this repository  
+2. Run `npm install`  
+3. Create a `.env` file (or configure it directly on Render) with the following variable:  
+   ```
+   GOOGLE_SERVICE_ACCOUNT_JSON='{"type": "...", "project_id": "...", ...}'
+   ```
+4. Start the server locally:  
+   ```
+   npm run start
+   ```
 
-Il server risponderà su `http://localhost:3000`.
+The server will respond at `http://localhost:3000`.
 
-## Deploy su Render
+## 🚀 Deploying to Render
 
-1. Collega la repo Git a Render come **Web Service**  
-2. Imposta nel pannello **Environment**:
-- `GOOGLE_SERVICE_ACCOUNT_JSON` → incolla il JSON intero della tua Service Account  
-- `PORT` (opzionale)
-3. Build Command: `npm install`  
-4. Start Command: `npm start`  
-5. Ogni push su `main` scatenerà un nuovo deploy.
+1. Connect your Git repository to [Render](https://render.com) as a **Web Service**  
+2. In the **Environment** panel, add:
+   - `GOOGLE_SERVICE_ACCOUNT_JSON`: paste the full JSON of your Firebase Service Account  
+   - `PORT` (optional)
+3. Set the build command:
+   ```
+   npm install
+   ```
+4. Set the start command:
+   ```
+   npm start
+   ```
+5. Every push to the `main` branch will trigger a new deployment.
 
-## Come chiamare l’endpoint
+## 📮 How to Call the Endpoint
 
-Dal client, dopo la creazione utente Firebase Auth:
+From your client-side code, after creating the user with Firebase Auth:
 
 ```js
-await fetch("https://<tuo-backend>.onrender.com/api/create-owner", {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
- uid:   user.uid,
- name:  user.displayName || nomeDigitato,
- email: user.email
-})
+await fetch("https://<your-backend>.onrender.com/api/create-owner", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    uid:   user.uid,
+    name:  user.displayName || typedName,
+    email: user.email
+  })
 });
 ```
