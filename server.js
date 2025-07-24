@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const server = http.createServer(app);
+const API_URL = process.env.API_URL;
 
 app.get('/', async (req, res) => {
     res.sendFile(__dirname + '/client/index.html');
@@ -43,6 +44,15 @@ app.get('/Privacy-Policies', async (req, res) => {
 });
 app.get('/Sitemap', async (req, res) => {
     res.sendFile(__dirname + '/client/sitemap.xml');
+});
+app.post('/api/owner', async (req, res) => {
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(req.body)
+    });
+    const result = await response.json();
+    res.json(result);
 });
 
 app.use((req, res, next) => {

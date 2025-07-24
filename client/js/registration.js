@@ -36,8 +36,7 @@ function initRegister() {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
       
-      const API_URL = process.env.API_URL;
-      const res = await fetch(API_URL, {
+      const res = await fetch('/api/owner', {
         method: "POST",
         headers: { "Content-Type": "application-json" },
         body: JSON.stringify({
