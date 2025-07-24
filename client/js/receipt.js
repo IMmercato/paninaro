@@ -1,5 +1,5 @@
 import { db } from './helpers/firebase.js';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 import { requireAuth } from './helpers/authController.js';
 
 /**

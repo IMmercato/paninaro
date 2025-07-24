@@ -1,6 +1,6 @@
 import { auth, db } from './helpers/firebase.js';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 import { redirectIfAuth, handleGoogleSignIn } from './helpers/authController.js';
 
 function initRegister() {

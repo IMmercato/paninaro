@@ -3,7 +3,7 @@ import {
   collection,
   getDocs,
   onSnapshot
-} from 'firebase/firestore';
+} from "https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js";
 import Highcharts from 'https://code.highcharts.com/es-modules/masters/highcharts.src.js';
 import ExportingModule from 'https://code.highcharts.com/es-modules/masters/modules/exporting.src.js';
 import AccessibilityModule from 'https://code.highcharts.com/es-modules/masters/modules/accessibility.src.js';
