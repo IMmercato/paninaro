@@ -214,6 +214,14 @@ label {
     pointer-events: none;
 }
 
+#info {
+    display: none;
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

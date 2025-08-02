@@ -41,7 +41,7 @@ export async function handleGoogleSignIn(redirectUrl = '/Paninaro') {
 
     const res = await fetch('/api/owner', {
       method: "POST",
-      headers: { "Content-Type": "aplication-json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         uid: user.uid,
         name: name,

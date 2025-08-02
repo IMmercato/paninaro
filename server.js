@@ -1,65 +1,69 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 require('dotenv').config();
-const http = require('http');
+const fetch = require('node-fetch');
 
 const app = express();
+
+// Middleware
 app.use(express.static('client'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
-const server = http.createServer(app);
 const API_URL = process.env.API_URL;
 
-app.get('/', async (req, res) => {
-    res.sendFile(__dirname + '/client/index.html');
-});
-app.get('/Signin', async (req, res) => {
-    res.sendFile(__dirname + '/client/signin.html');
-});
-app.get('/Login', async (req, res) => {
-    res.sendFile(__dirname + '/client/login.html');
-});
-app.get('/Paninaro', async (req, res) => {
-    res.sendFile(__dirname + '/client/paninaro.html');
-});
-app.get('/Order', async (req, res) => {
-    res.sendFile(__dirname + '/client/ordine.html');
-});
-app.get('/Spese', async (req, res) => {
-    res.sendFile(__dirname + '/client/spese.html');
-});
-app.get('/Receipt', async (req, res) => {
-    res.sendFile(__dirname + '/client/receipt.html');
-});
-app.get('/Guadagni', async (req, res) => {
-    res.sendFile(__dirname + '/client/money.html');
-});
-app.get('/Termini-Condizioni', async (req, res) => {
-    res.sendFile(__dirname + '/client/regole.html');
-});
-app.get('/Privacy-Policies', async (req, res) => {
-    res.sendFile(__dirname + '/client/privacy.html');
-});
-app.get('/Sitemap', async (req, res) => {
-    res.sendFile(__dirname + '/client/sitemap.xml');
-});
+// ===================
+// ROUTES (HTML pages)
+// ===================
+app.get('/', (req, res) => res.sendFile(__dirname + '/client/index.html'));
+app.get('/Signin', (req, res) => res.sendFile(__dirname + '/client/signin.html'));
+app.get('/Login', (req, res) => res.sendFile(__dirname + '/client/login.html'));
+app.get('/Paninaro', (req, res) => res.sendFile(__dirname + '/client/paninaro.html'));
+app.get('/Order', (req, res) => res.sendFile(__dirname + '/client/ordine.html'));
+app.get('/Spese', (req, res) => res.sendFile(__dirname + '/client/spese.html'));
+app.get('/Receipt', (req, res) => res.sendFile(__dirname + '/client/receipt.html'));
+app.get('/Guadagni', (req, res) => res.sendFile(__dirname + '/client/money.html'));
+app.get('/Termini-Condizioni', (req, res) => res.sendFile(__dirname + '/client/regole.html'));
+app.get('/Privacy-Policies', (req, res) => res.sendFile(__dirname + '/client/privacy.html'));
+app.get('/Sitemap', (req, res) => res.sendFile(__dirname + '/client/sitemap.xml'));
+
+// ===================
+// API: Forward owner creation
+// ===================
 app.post('/api/owner', async (req, res) => {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(req.body)
+  const { uid, name, email } = req.body;
+
+  if (!req.body || !uid || !email) {
+    return res.status(400).json({ error: "uid and email are required" });
+  }
+
+  try {
+    const backendResponse = await fetch(`${API_URL}/api/create-owner`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uid, name, email })
     });
-    const result = await response.json();
-    res.json(result);
+
+    const contentType = backendResponse.headers.get('content-type');
+    const result = contentType?.includes('application/json')
+      ? await backendResponse.json()
+      : { error: 'Invalid response from backend' };
+
+    return res.status(backendResponse.status).json(result);
+  } catch (err) {
+    return res.status(500).json({ error: "Failed to reach backend service" });
+  }
 });
 
-app.use((req, res, next) => {
-    res.status(404).sendFile(__dirname + '/client/404.html');
+// ===================
+// 404 Fallback
+// ===================
+app.use((req, res) => {
+  res.status(404).sendFile(__dirname + '/client/404.html');
 });
 
+// ===================
+// Start Server
+// ===================
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
